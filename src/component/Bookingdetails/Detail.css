@@ -1,0 +1,13 @@
+.first1{
+    display: flex;
+    border: 1px solid lightgray;
+}
+.detail{
+    width: 100%;
+    text-align: center;
+}
+.detail1{
+    width: 100%;
+    text-align: center;
+    color: orange;
+}

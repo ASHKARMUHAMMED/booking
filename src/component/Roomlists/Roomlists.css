@@ -1,0 +1,11 @@
+.Roomitem{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid lightgrey;
+    padding: 5px 20px;
+}
+.data{
+    color: orange;
+    cursor: pointer;
+    
+}

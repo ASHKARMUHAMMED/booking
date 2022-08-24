@@ -1,0 +1,83 @@
+.main3{
+    display: flex;
+    justify-content: space-between;
+}
+.main3 h3{
+    color: orange;
+}
+.first2{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid lightgray;
+        font-weight: bold;
+        margin-top: 30px;
+        width: 98%;
+        margin-left: 1%;
+        background-color: white;
+    
+}
+.roomback{
+    background-color: white;
+}
+.roomcontainer{
+    background-color: aliceblue;
+    padding-bottom: 60px;
+    
+}
+.toproom{
+    position: relative;
+}
+.y{
+    width: 100%;
+    text-align: center;
+}
+.mainroom1{
+    width: 30%;
+    background-color:bisque;
+   
+    padding: 20px;
+}
+
+.bottomroom{
+
+    margin-top: 15px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.cancel{
+    color: orange;
+}
+.click5{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(82,73,73,0.315);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.amenities{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.amenitieslist{
+    
+    background-color: white;
+    padding-top: 5px;
+    margin-top: 10px;
+    
+    
+}
+.scroll{
+    max-height: 200px;
+    overflow: auto;
+}
+.name{
+    margin-left: 20px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
