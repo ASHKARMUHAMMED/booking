@@ -14,10 +14,13 @@
         width: 98%;
         margin-left: 1%;
         background-color: white;
+        padding: 10px 0px;
     
 }
 .roomback{
     background-color: white;
+    max-height: 500px;
+    overflow: auto;
 }
 .roomcontainer{
     background-color: aliceblue;

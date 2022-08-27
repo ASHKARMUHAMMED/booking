@@ -3,8 +3,8 @@ import Detail from '../../component/Bookingdetails/Detail'
 import Htop from '../../component/Header/Htop'
 import Roomdetail from '../../component/Roomdetail/Roomdetail'
 import './Room.css'
-import {Link,useNavigate} from 'react-router-dom'
-import { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
+import { useState,useEffect } from 'react'
 import Input from '../../component/Input/Input'
 import Button from '../../component/Button/Button'
 import Roomlists from '../../component/Roomlists/Roomlists'
@@ -12,38 +12,58 @@ import Roomlists from '../../component/Roomlists/Roomlists'
 const Room = () => {
   const [click,setClick]=useState(false);
   const navigate= useNavigate();
-  const [item,setItem]=useState({roomno:"",adult:"",children:"",price:""})
+  const [item,setItem]=useState({roomno:"",adultno:"",childno:"",price:""})
+  const [data,setData]=useState([]);
   async function Signup(e){
     e.preventDefault();
     try{
     
   
-      let result=await fetch("http://192.168.1.62:3000/profile",{
+      let result=await fetch("https://localhost:7002/rooms",{
       method:'POST',
       body:JSON.stringify(item),
       headers:{
         "Content-Type":'application/json',
         "Accept":'application/json'
       }  
-      
+     
     })
-    throw("");
-    result=await result.json()
+    alert("Successfully")
+    // throw("");
     
-    
-    
+    result=await result.json() 
   }
-
-  
-  catch(e){
-    
+  catch{
     alert('Error');
-    
   }
   }
   function onChange(value,key){
     setItem((prev)=>({...prev,[key]:value}))
   }
+  async function getData(){
+    
+  
+      let respond=await fetch("https://localhost:7002/rooms",{
+      method:'GET',
+      headers:{
+        "Content-Type":'application/json'
+      } 
+     
+    })
+    
+    return  respond.json();
+  }
+    useEffect(()=>{
+      const userData =async()=>{
+      const respond= await getData();
+      setData(respond);
+    };
+    userData();
+  },[]
+  );
+  
+
+
   return (
     
     <div>
@@ -61,11 +81,11 @@ const Room = () => {
         <div className='roomno'>
         <form onSubmit={Signup}>
             <Input type='number' label='Room Number' onchange={(e)=>{onChange(e.target.value, 'roomno')}} value={item.roomno}/>
-            <Input type='number' label='Adults Capacity' onchange={(e)=>{onChange(e.target.value, 'adult')}} value={item.adult}/>
-            <Input type='number' label='Childern Capacity' onchange={(e)=>{onChange(e.target.value, 'children')}} value={item.children}/>
+            <Input type='number' label='Adults Capacity' onchange={(e)=>{onChange(e.target.value, 'adultno')}} value={item.adult}/>
+            <Input type='number' label='Childern Capacity' onchange={(e)=>{onChange(e.target.value, 'childno')}} value={item.children}/>
             <Input type='number' label='Price' onchange={(e)=>{onChange(e.target.value, 'price')}} value={item.price}/>
             <div className="bottomroom">
-            <Button label='Save' type='primary' />
+            <Button label='Save' type='primary' onclick={()=>{setClick(false)}} />
             <div>or</div>
             <div className='cancel' onClick={()=>{setClick(false)}}>Cancel</div>
             </div>
@@ -90,12 +110,7 @@ const Room = () => {
               <Roomlists label='Premium Towels' data='Delete'/>
               <Roomlists label='Cribe' data='Delete'/>
               <Roomlists label='Safe' data='Delete'/>
-              <Roomlists label='Television' data='Delete'/>
-              <Roomlists label='Internet Access' data='Delete'/>
-              <Roomlists label='Hair Dryer' data='Delete'/>
-              <Roomlists label='Premium Towels' data='Delete'/>
-              <Roomlists label='Cribe' data='Delete'/>
-              <Roomlists label='Safe' data='Delete'/>
+              
               </div>
             </div>
         </div>
@@ -107,10 +122,13 @@ const Room = () => {
             <div className="y">Adults Capacity</div>
             <div className="y">Childern Capacity</div>
             <div className="y">price</div>
+            <div className="y">Edit</div>
+
           </div>
           <div className='roomback'>
-          <Roomdetail a='101' b='1' c='0' d='34'/>
-          <Roomdetail a='105' b='2' c='2' d='45'/>
+            {data.map((value,index)=>(
+          <Roomdetail a={value.roomno} b={value.adultno} c={value.childno} d={value.price}/>
+          ))}
           </div>
     
         </div>

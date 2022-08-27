@@ -4,9 +4,32 @@ import './Book.css'
 import {Link,useNavigate} from 'react-router-dom'
 import Htop from '../../component/Header/Htop'
 import Detail from '../../component/Bookingdetails/Detail'
+import { useState,useEffect } from 'react'
 
 
 const Book = () => {
+  const [input,setInput]=useState([]);
+  async function getDetail(){
+    
+  
+    let respond=await fetch("https://localhost:7002/booking",{
+    method:'GET',
+    headers:{
+      "Content-Type":'application/json'
+    } 
+   
+  })
+  
+  return  respond.json();
+}
+useEffect(()=>{
+  const user =async()=>{
+  const respond= await getDetail();
+  setInput(respond);
+};
+user();
+},[]
+);
   return (
     <div>
       <div>
@@ -30,13 +53,17 @@ const Book = () => {
           <div className='first'>
             <div className="d">Guest Last Name</div>
             <div className="d">Guest First Name</div>
-            <div className="d">Room Number</div>
             <div className="d">Check In Date</div>
             <div className="d">Check Out Date</div>
+            <div className="d">Adult Number</div>
+            <div className="d">Child Number</div>
             <div className="d">Status</div>
           </div>
-          <Detail detil1='Kahn' detil2='Ajmal' detil3='101' detil4='23 Jan 2020' detil5='23 Jan 2020' detil6='IN'/>
-          <Detail detil1='Sha' detil2='Ameer' detil3='255' detil4='26 Jan 2020' detil5='27 Jan 2020' detil6='Out'/>
+          {input.map((value,index)=>(
+          
+          <Detail detil1={value.lastname} detil2={value.firstname} detil3={value.checkedin} detil4={value.checkedout} detil5={value.adultnumber} detil6={value.childnumber} detil7='In'/>
+          ))}
+          
         </div>
         </div>
 
